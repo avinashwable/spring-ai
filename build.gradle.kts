@@ -21,15 +21,24 @@ repositories {
 extra["springAiVersion"] = "2.0.0-M1"
 
 dependencies {
+	// for exposing REST endpoints and WebFlux support
 	implementation("org.springframework.boot:spring-boot-starter-web")
+
+	// Spring AI Starter for OpenAI Models
 	implementation("org.springframework.ai:spring-ai-starter-model-openai")
+
+	implementation("io.netty:netty-resolver-dns-native-macos") {
+		artifact {
+			classifier = "osx-aarch_64"
+		}
+	}
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	// Lombok for main code
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
-
 	// Lombok for test code
 	testCompileOnly("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")
