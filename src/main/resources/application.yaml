@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: aiworkshop
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+
