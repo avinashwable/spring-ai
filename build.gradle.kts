@@ -26,6 +26,8 @@ dependencies {
 
 	// Spring AI Starter for OpenAI Models
 	implementation("org.springframework.ai:spring-ai-starter-model-openai")
+	// Spring AI Starter for Anthropic Models
+	implementation("org.springframework.ai:spring-ai-starter-model-anthropic")
 
 	implementation("io.netty:netty-resolver-dns-native-macos") {
 		artifact {
