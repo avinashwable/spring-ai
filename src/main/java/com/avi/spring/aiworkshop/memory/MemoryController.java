@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+// chat with memory using ChatClient configured to use ChatMemory
 @RestController
 @RequestMapping("/memory")
 public class MemoryController {
