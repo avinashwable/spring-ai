@@ -19,6 +19,7 @@ public class AiModelsConfig {
     @Bean
     public ChatClient openAiChatClientWithMemory(OpenAiChatModel chatModel, ChatMemory chatMemory) {
 
+        // default ChatMemory is MessageWindowChatMemory with InMemoryChatMemoryRepository
         return ChatClient.builder(chatModel)
                 .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
                 .build();
