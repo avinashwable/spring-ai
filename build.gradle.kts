@@ -29,6 +29,10 @@ dependencies {
 	// Spring AI Starter for Anthropic Models
 	implementation("org.springframework.ai:spring-ai-starter-model-anthropic")
 
+	// RAG
+	implementation("org.springframework.ai:spring-ai-advisors-vector-store")
+
+	// Netty DNS resolver for Mac M1/M2 support
 	implementation("io.netty:netty-resolver-dns-native-macos") {
 		artifact {
 			classifier = "osx-aarch_64"

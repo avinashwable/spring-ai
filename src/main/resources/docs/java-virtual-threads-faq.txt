@@ -1,0 +1,40 @@
+FAQ: Understanding Java Virtual Threads
+This document provides a technical overview of Virtual Threads (introduced in Java 21) for developers and system architects.
+1. What are Java Virtual Threads?
+Virtual threads are lightweight, JVM-managed threads designed to reduce the overhead of traditional platform threads. Unlike platform threads, which map 1:1 to Operating System (OS) threads, thousands or even millions of virtual threads can run on a small pool of OS threads.
+
+2. What problem do they solve?
+Traditional Java applications follow a "thread-per-request" model. Because OS threads are resource-heavy (consuming ~1MB of memory each), scaling to thousands of concurrent users requires complex asynchronous programming. Virtual threads allow developers to write simple, synchronous code that scales to high throughput without exhausting system memory.
+
+3. What is the difference between a Platform Thread and a Virtual Thread?
+Platform Threads: Managed by the OS, expensive to create, and have fixed stack sizes.
+Virtual Threads: Managed by the Java runtime, cheap to create, and have stacks stored in the Java heap that grow and shrink as needed.
+
+4. How do I create a Virtual Thread?
+You can use the Thread.ofVirtual() builder or a specialized Executor:
+java
+// Method 1: Static factory
+Thread.startVirtualThread(() -> System.out.println("Running!"));
+
+// Method 2: ExecutorService
+try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    executor.submit(() -> "Task execution");
+}
+Use code with caution.
+
+5. Should I pool Virtual Threads?
+No. Virtual threads are not a scarce resource. You should never pool them (e.g., using a FixedThreadPool). Instead, create a new virtual thread for every individual task and let it die once the task is complete.
+
+6. What is "Pinning" and why is it a problem?
+Pinning occurs when a virtual thread is "stuck" to its carrier (OS) thread. If a virtual thread performs a blocking operation while pinned, it blocks the underlying OS thread, preventing other virtual threads from running.
+Cause: This typically happens when using the synchronized keyword or calling native methods.
+Solution: Replace synchronized with ReentrantLock for long-running blocking operations.
+
+7. When should I NOT use Virtual Threads?
+Virtual threads provide no benefit for CPU-bound tasks (like complex mathematical calculations or video encoding). They are specifically designed for I/O-bound workloads where threads spend most of their time waiting for databases, APIs, or file systems.
+
+8. Are Virtual Threads daemon threads?
+Yes. Virtual threads are always daemon threads. You cannot change this via setDaemon(false), and the JVM will terminate if only virtual threads are left running.
+
+9. How do Virtual Threads interact with ThreadLocal?
+While supported, use ThreadLocal with caution. If you spawn one million virtual threads, you will also have one million instances of your ThreadLocal data. For modern concurrency, consider using Scoped Values as a more memory-efficient alternative.
