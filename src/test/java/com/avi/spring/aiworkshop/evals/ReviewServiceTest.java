@@ -1,6 +1,6 @@
 package com.avi.spring.aiworkshop.evals;
 
-import com.avi.spring.aiworkshop.ChatClientTestConfig;
+import com.avi.spring.aiworkshop.AiModelsTestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Import(ChatClientTestConfig.class)
+@Import(AiModelsTestConfig.class)
 class ReviewServiceTest {
 
     @Autowired

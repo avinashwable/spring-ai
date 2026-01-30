@@ -6,10 +6,15 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
-public class ChatClientTestConfig {
+public class AiModelsTestConfig {
 
     @Bean
-    public ChatClient chatClient(OpenAiChatModel chatModel) {
-        return ChatClient.create(chatModel);
+    public ChatClient.Builder chatClientBuilder(OpenAiChatModel chatModel) {
+        return ChatClient.builder(chatModel);
+    }
+
+    @Bean
+    public ChatClient chatClient(ChatClient.Builder chatClientBuilder) {
+        return chatClientBuilder.build();
     }
 }

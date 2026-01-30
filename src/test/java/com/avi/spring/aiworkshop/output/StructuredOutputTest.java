@@ -1,6 +1,6 @@
 package com.avi.spring.aiworkshop.output;
 
-import com.avi.spring.aiworkshop.ChatClientTestConfig;
+import com.avi.spring.aiworkshop.AiModelsTestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-@Import(ChatClientTestConfig.class)
+@Import(AiModelsTestConfig.class)
 class StructuredOutputTest {
 
     @Autowired
