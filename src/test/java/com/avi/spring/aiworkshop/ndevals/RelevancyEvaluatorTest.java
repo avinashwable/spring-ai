@@ -22,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class RelevancyEvaluatorTest {
 
     @Autowired
-    private ChatClient.Builder clientBuilder;
+    private ChatClient.Builder chatClientBuilder;
 
     RelevancyEvaluator relevancyEvaluator;
 
     @BeforeEach
     void setup() {
-        relevancyEvaluator = new RelevancyEvaluator(clientBuilder);
+        relevancyEvaluator = new RelevancyEvaluator(chatClientBuilder);
     }
 
     @Test

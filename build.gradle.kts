@@ -42,6 +42,11 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+	// TestContainers for integration tests
+	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	testImplementation("org.springframework.ai:spring-ai-spring-boot-testcontainers")
+	testImplementation("org.testcontainers:junit-jupiter")
+
 	// Lombok for main code
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
@@ -53,9 +58,14 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom("org.springframework.ai:spring-ai-bom:${property("springAiVersion")}")
+		mavenBom("org.testcontainers:testcontainers-bom:1.19.7")
 	}
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	testLogging {
+		showStandardStreams = true
+		events("started", "passed", "failed", "skipped", "standard_out", "standard_error")
+	}
 }

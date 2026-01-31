@@ -31,14 +31,14 @@ public class RAGConfiguration {
      * This is just a simple example using SimpleVectorStore.
      * In real-world scenarios, consider using more robust vector stores like Pinecone, Weaviate, or FAISS.
      *
-     * @param embeddingModel the embedding model to use for vectorization - this will be auto-configured by Spring AI
-     *                      currently it injects {@link org.springframework.ai.openai.OpenAiEmbeddingModel}
+     * @param openAiEmbeddingModel the embedding model to use for vectorization - this will be auto-configured by Spring AI
+     *                             currently it injects {@link org.springframework.ai.openai.OpenAiEmbeddingModel}
      * @return SimpleVectorStore
      */
     @Bean
-    SimpleVectorStore simpleVectorStore(EmbeddingModel embeddingModel) {
+    SimpleVectorStore simpleVectorStore(EmbeddingModel openAiEmbeddingModel) {
         log.info("Initializing SimpleVectorStore with FAQ document: {}", faqResource.getFilename());
-        SimpleVectorStore vectorStore = SimpleVectorStore.builder(embeddingModel).build();
+        SimpleVectorStore vectorStore = SimpleVectorStore.builder(openAiEmbeddingModel).build();
         File file = getVectorStoreFile();
         if (file.exists()) {
             log.info("Loading SimpleVectorStore from existing data file: {}", VECTOR_STORE_FILE);
